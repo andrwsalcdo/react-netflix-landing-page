@@ -30,7 +30,7 @@ let App = React.createClass({
           <div id="search" className="Search">
             <input onKeyUp={this.handleKeyUp} onChange={this.handleChange} type="search" placeholder="Search for a title..." value={this.state.searchTerm} />
           </div>
-          {/*<UserProfile />*/}
+          <UserProfile />
         </header>
         {/*<Hero />*/}
         {/*<TitleList title="Search Results" url={this.state.searchUrl} />
@@ -44,7 +44,8 @@ let App = React.createClass({
   }
 });
 
-let Navigation= React.createClass({
+// Navigation 
+let Navigation = React.createClass({
   render: function() {
     return (
       <div id="navigation" className="Navigation">
@@ -61,6 +62,19 @@ let Navigation= React.createClass({
   }
 }); 
 
+// User Profile 
+let UserProfile = React.createClass({
+  render: function() {
+    return (
+      <div className="UserProfile">
+        <div className="User">
+          <div className="name">Andrew Salcedo</div>
+          <div className="image"><img src="http://imgur.com/3LL7bcc.jpg" alt="profile" /></div>
+        </div>
+      </div> 
+    );
+  }
+}); 
 
 
 export default App;
