@@ -1,3 +1,4 @@
+// const xyz = react.createClas({}) this is depracated 
 import React, { Component } from 'react';
 import Logo from './Logo.js';
 import './App.css';
@@ -21,7 +22,7 @@ let App = React.createClass({
   handleChange: function(e) {
     this.setState({searchTerm: e.target.value}); 
   }, 
-  render: function() {
+  render() {
     return (
       <div>
         <header className="Header">
@@ -32,7 +33,7 @@ let App = React.createClass({
           </div>
           <UserProfile />
         </header>
-        {/*<Hero />*/}
+        <Hero />
         {/*<TitleList title="Search Results" url={this.state.searchUrl} />
         <TitleList title="Top TV picks for Jack" url='discover/tv?sort_by=popularity.desc&page=1' />
         <TitleList title="Trending now" url='discover/movie?sort_by=popularity.desc&page=1' />
@@ -45,8 +46,8 @@ let App = React.createClass({
 });
 
 // Navigation 
-let Navigation = React.createClass({
-  render: function() {
+class Navigation extends React.Component {
+  render() {
     return (
       <div id="navigation" className="Navigation">
         <nav>
@@ -60,11 +61,11 @@ let Navigation = React.createClass({
       </div>
     ); 
   }
-}); 
+}
 
 // User Profile 
-let UserProfile = React.createClass({
-  render: function() {
+class UserProfile extends React.Component {
+  render() {
     return (
       <div className="UserProfile">
         <div className="User">
@@ -74,7 +75,35 @@ let UserProfile = React.createClass({
       </div> 
     );
   }
-}); 
+}
 
+//////// HERO //////////
+class Hero extends React.Component {
+  render() {
+    return (
+      <div id="hero" className="Hero" style={{backgroundImage: 'url(https://images.alphacoders.com/633/633643.jpg)' }}>
+        <div className="content">
+          <img className="logo" src="https://www.returndates.com/backgrounds/narcos.logo.png" alt="narcos background" />
+          <h2>Season 2 now available</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloremque id quam sapiente unde voluptatum alias vero debitis, magnam quis quod.</p>
+          <div className="button-wrapper">
+            <HeroButton primary={true} text="Watch Now" />
+            <HeroButton primary={false} text="+ My List" />
+          </div>
+        </div>
+        <div className="overlay"></div>
+      </div>  
+    );
+  }
+}
+
+// Hero Button 
+class HeroButton extends React.Component {
+  render() {
+    return (
+      <a href="#" className="Button" data-primary={this.props.primary}>{this.props.text}</a>
+    );
+  }
+}
 
 export default App;
