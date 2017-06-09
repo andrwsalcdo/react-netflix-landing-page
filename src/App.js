@@ -26,7 +26,7 @@ let App = React.createClass({
       <div>
         <header className="Header">
           <Logo />
-          {/*<Navigation />*/}
+          <Navigation />
           <div id="search" className="Search">
             <input onKeyUp={this.handleKeyUp} onChange={this.handleChange} type="search" placeholder="Search for a title..." value={this.state.searchTerm} />
           </div>
@@ -43,5 +43,24 @@ let App = React.createClass({
    ); 
   }
 });
+
+let Navigation= React.createClass({
+  render: function() {
+    return (
+      <div id="navigation" className="Navigation">
+        <nav>
+          <ul>
+            <li>Browse</li>
+            <li>My List</li>
+            <li>Top picks</li>
+            <li>Recent</li>
+          </ul>
+        </nav>
+      </div>
+    ); 
+  }
+}); 
+
+
 
 export default App;
