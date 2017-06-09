@@ -35,7 +35,7 @@ let App = React.createClass({
         </header>
         <Hero />
         <TitleList title="Search Results" url={this.state.searchUrl} />
-        <TitleList title="Top TV picks for Jack" url='discover/tv?sort_by=popularity.desc&page=1' />
+        <TitleList title="Top TV picks for Andrew" url='discover/tv?sort_by=popularity.desc&page=1' />
         <TitleList title="Trending now" url='discover/movie?sort_by=popularity.desc&page=1' />
         <TitleList title="Most watched in Horror" url='genre/27/movies?sort_by=popularity.desc&page=1' />
         <TitleList title="Sci-Fi greats" url='genre/878/movies?sort_by=popularity.desc&page=1' />
