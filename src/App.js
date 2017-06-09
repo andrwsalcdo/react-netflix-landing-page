@@ -1,5 +1,5 @@
 // const xyz = react.createClas({}) this is depracated 
-import React, { Component } from 'react';
+import React from 'react';
 import Logo from './Logo.js';
 import './App.css';
 
@@ -34,7 +34,7 @@ let App = React.createClass({
           <UserProfile />
         </header>
         <Hero />
-        {/*<TitleList title="Search Results" url={this.state.searchUrl} />
+        <TitleList title="Search Results" url={this.state.searchUrl} />
         <TitleList title="Top TV picks for Jack" url='discover/tv?sort_by=popularity.desc&page=1' />
         <TitleList title="Trending now" url='discover/movie?sort_by=popularity.desc&page=1' />
         <TitleList title="Most watched in Horror" url='genre/27/movies?sort_by=popularity.desc&page=1' />
@@ -102,6 +102,94 @@ class HeroButton extends React.Component {
   render() {
     return (
       <a href="#" className="Button" data-primary={this.props.primary}>{this.props.text}</a>
+    );
+  }
+}
+
+/////////// Title List ///////////
+class TitleList extends React.Component {
+  constructor(props) {
+    super(props); 
+    this.state = {
+      apiKey: '87dfa1c669eea853da609d4968d294be',
+      data: [], 
+      mounted: false
+    };
+  }
+  loadContent() {
+    let requestUrl = 'https://api.themoviedb.org/3/' + this.props.url + '&api_key=' + this.state.apiKey;
+    fetch(requestUrl).then((res) => {
+      return res.json(); 
+    }).then((data) => {
+      this.setState({data : data}); 
+    }).catch((err) => {
+      console.log("there has been an error");
+    });
+  }
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.url !== this.props.url && nextProps.url !== '') {
+      this.setState({mounted: true, url: nextProps.url}, () => {
+        this.loadContent(); 
+      }); 
+    }
+  }
+  componentDidMount() {
+    if(this.props.url !== ''){
+      this.loadContent(); 
+      this.setState({mounted: true});
+    }
+  }
+  render() {
+    let titles = '';
+    if(this.state.data.results) {
+      titles = this.state.data.results.map((title,i) => {
+        if( i < 5) {
+            let name = ""; 
+            let backDrop = 'http://image.tmdb.org/t/p/original' + title.backdrop_path; 
+            if(!title.name) {
+              name = title.original_title; 
+            } else {
+              name = title.name; 
+            }
+
+            return (
+              <Item key ={title.id} title={name} score={title.vote_average} overview={title.overview} backdrop={backDrop} />
+            );
+
+            } else {
+              return (<div key={title.id}></div>); 
+            }
+          });  
+      }
+      
+      return (
+          <div ref="titlecategory" className="TitleList" data-loaded={this.state.mounted}>
+            <div className="Title">
+              <h1>{this.props.title}</h1>
+              <div className="titles-wrapper">
+                {titles}
+              </div>
+            </div>
+          </div>
+      );
+  }
+}
+
+// Title List Item 
+class Item extends React.Component {
+  constructor(props) {
+    super(); 
+  }
+  render() {
+    return (
+        <div className="Item" style={{backgroundImage: 'url(' + this.props.backdrop + ')'}} >
+          <div className="overlay" >
+            <div className="title">{this.props.title}</div>
+            <div className="rating">{this.props.score} / 10</div>
+            <div className="plot">{this.props.overview}</div>
+            {/*<ListToggle />*/}
+          </div>
+        </div>
     );
   }
 }
